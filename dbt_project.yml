@@ -27,6 +27,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 data_tests:
   +store_failures: true
 
+seeds:
+  my_new_project:
+    mcc_categorias:
+      +column_types:
+        mcc: string
+
+
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
