@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_aurora__clientes
+    description: Comerciantes, com CNPJ normalizado como texto de 14 digitos.
+    columns:
+      - name: cliente_id
+        description: Chave primaria do comerciante.
+        tests: [unique, not_null]
+      - name: cnpj
+        tests:
+          - unique:
+              config:
+                severity: warn
+
+  - name: stg_aurora__transacoes
+    description: Transacoes cruas, apenas renomeadas e tipadas.
+    columns:
+      - name: transacao_id
+        tests: [unique, not_null]
+      - name: tipo
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["credito", "debito", "pix"]
+      - name: status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["aprovada", "negada", "estornada"]
+
+  - name: stg_aurora__chargebacks
+    description: Contestacoes abertas pelos portadores.
+    columns:
+      - name: chargeback_id
+        tests: [unique, not_null]
