@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_clientes
+    description: Uma linha por comerciante, com o plano comercial resolvido.
+    columns:
+      - name: cliente_id
+        tests: [unique, not_null]
+
+  - name: fct_transacoes
+    description: "Uma linha por transacao. Grao: transacao."
+    columns:
+      - name: transacao_id
+        description: Chave primaria. Grao da tabela.
+        tests: [unique, not_null]
+      - name: cliente_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clientes')
+                field: cliente_id
+      - name: mcc
+        tests:
+          - not_null:
+              config:
+                severity: warn

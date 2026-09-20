@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: aurora
+    database: aurora-pay-dbt
+    schema: aurora
+    tables:
+      - name: clientes
+      - name: transacoes
+      - name: chargebacks
+      - name: planos
